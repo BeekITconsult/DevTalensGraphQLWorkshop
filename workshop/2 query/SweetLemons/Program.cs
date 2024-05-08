@@ -1,9 +1,10 @@
 using System.Text.Json.Serialization;
 using Books;
 using Microsoft.EntityFrameworkCore;
+using SweetLemons;
 using SweetLemons.Api;
-using SweetLemons.Api.Entities;
-using SweetLemons.Api.Infrastructure;
+using SweetLemons.Entities;
+using SweetLemons.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,14 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
+
+builder.Services
+    .AddGraphQLServer()
+    .AddProjections()
+    .AddQueryType<Query>()
+    .RegisterDbContext<SweetLemonsContext>()
+    ;
+
 
 var app = builder.Build();
 
@@ -37,7 +46,7 @@ app.MapGet("/orders", async(SweetLemonsContext context) =>
     .WithName("Orders")
     .WithOpenApi();
 
-app.MapPost("/johnNeedsMoreLemons", async (SweetLemonsContext context) =>
+app.MapPost("/seed", async (SweetLemonsContext context) =>
 {
     var lemon = new Product()
     {
@@ -74,5 +83,28 @@ app.MapPost("/johnNeedsMoreLemons", async (SweetLemonsContext context) =>
 
     await context.SaveChangesAsync();
 });
+
+app.MapPost("/johnNeedsMoreLemons", async (SweetLemonsContext context) =>
+{
+    var order = new Order
+    {
+        Id = Guid.NewGuid(),
+        Customer = context.Customers.First(c => c.Name == "John van Lieshout"),
+        OrderLineItems = new List<OrderLineItem>
+        {
+            new()
+            {
+                Item = context.Products.First(c => c.Name == "Sweet Lemon"),
+                Quantity = 342
+            },
+        },
+    };
+
+    context.Orders.Add(order);
+
+    await context.SaveChangesAsync();
+});
+
+app.MapGraphQL();
 
 app.Run();

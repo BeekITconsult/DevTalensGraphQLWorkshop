@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweetLemons.Api", "SweetLemons.Api\SweetLemons.Api.csproj", "{F334B51F-CDCA-403D-8FAD-6CF0F037458D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweetLemons", "SweetLemons\SweetLemons.csproj", "{F334B51F-CDCA-403D-8FAD-6CF0F037458D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
