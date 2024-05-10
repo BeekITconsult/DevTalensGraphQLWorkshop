@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Books;
+using HotChocolate.Types.Pagination;
 using Microsoft.EntityFrameworkCore;
 using SweetLemons;
 using SweetLemons.Api;
@@ -22,6 +23,10 @@ builder.Services
     .AddProjections()
     .AddQueryType<Query>()
     .RegisterDbContext<SweetLemonsContext>()
+    .AddFiltering()
+    .AddSorting()
+    .SetPagingOptions(new PagingOptions
+        { MaxPageSize = int.MaxValue - 1, DefaultPageSize = int.MaxValue - 1, IncludeTotalCount = true });
     ;
 
 
