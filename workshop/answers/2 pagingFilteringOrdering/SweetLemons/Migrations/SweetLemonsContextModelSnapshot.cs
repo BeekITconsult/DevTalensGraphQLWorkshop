@@ -8,7 +8,7 @@ using SweetLemons.Infrastructure;
 
 #nullable disable
 
-namespace Books.Migrations
+namespace SweetLemons.Migrations
 {
     [DbContext(typeof(SweetLemonsContext))]
     partial class SweetLemonsContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace Books.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Books.Entities.Customer", b =>
+            modelBuilder.Entity("SweetLemons.Entities.Customer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,7 +37,7 @@ namespace Books.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Books.Entities.Order", b =>
+            modelBuilder.Entity("SweetLemons.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace Books.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Books.Entities.Product", b =>
+            modelBuilder.Entity("SweetLemons.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,15 +71,15 @@ namespace Books.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Books.Entities.Order", b =>
+            modelBuilder.Entity("SweetLemons.Entities.Order", b =>
                 {
-                    b.HasOne("Books.Entities.Customer", "Customer")
+                    b.HasOne("SweetLemons.Entities.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsMany("Books.Entities.OrderLineItem", "OrderLineItems", b1 =>
+                    b.OwnsMany("SweetLemons.Entities.OrderLineItem", "OrderLineItems", b1 =>
                         {
                             b1.Property<Guid>("OrderId")
                                 .HasColumnType("uniqueidentifier");
@@ -102,7 +102,7 @@ namespace Books.Migrations
 
                             b1.ToTable("OrderLineItem");
 
-                            b1.HasOne("Books.Entities.Product", "Item")
+                            b1.HasOne("SweetLemons.Entities.Product", "Item")
                                 .WithMany()
                                 .HasForeignKey("ItemId")
                                 .OnDelete(DeleteBehavior.Cascade)
@@ -119,7 +119,7 @@ namespace Books.Migrations
                     b.Navigation("OrderLineItems");
                 });
 
-            modelBuilder.Entity("Books.Entities.Customer", b =>
+            modelBuilder.Entity("SweetLemons.Entities.Customer", b =>
                 {
                     b.Navigation("Orders");
                 });
