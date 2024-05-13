@@ -1,0 +1,9 @@
+@SweetLemons_HostAddress = http://localhost:5262
+
+GET {{SweetLemons_HostAddress}}/orders/
+Accept: application/json
+
+###
+
+POST {{SweetLemons_HostAddress}}/johnNeedsMoreLemons/
+Accept: application/json
